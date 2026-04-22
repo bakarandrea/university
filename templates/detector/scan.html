@@ -1,0 +1,41 @@
+{% extends 'detector/base.html' %}
+
+{% block content %}
+<div class="header" style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
+    <h1>Analyze Email & SMS</h1>
+    <p class="subtitle">Paste an email, SMS message, or a suspicious URL into our AI engine to determine if it is safe or a phishing attempt.</p>
+</div>
+
+<div style="max-width: 800px; margin: 0 auto;">
+    <div class="glass-card">
+        <form id="scan-form">
+            <div class="form-group">
+                <label for="text">Message Content or URL</label>
+                <textarea id="text" name="text" placeholder="e.g. URGENT: Your account has been locked. Click here: http://secure-login-attempt.com" required></textarea>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; align-items: center; justify-content: space-between;">
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                    Powered by Pythonicboy University Threat AI Engine
+                </p>
+                <button type="submit" class="btn">
+                    <span>🔍 Start Scan</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Results Box (Hidden by default, shown via JS) -->
+    <div id="result-box" class="result-box glass-card" style="display: none;">
+        <div class="result-header">
+            <span id="result-icon"></span>
+            <span id="result-title"></span>
+        </div>
+        <p id="result-desc" style="margin-bottom: 1rem;"></p>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+            <strong id="confidence-text"></strong>
+            <button class="btn btn-secondary" onclick="document.getElementById('result-box').style.display='none'; document.getElementById('scan-form').reset();" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Scan Another</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

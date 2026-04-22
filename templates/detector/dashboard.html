@@ -1,0 +1,120 @@
+{% extends 'detector/base.html' %}
+
+{% block content %}
+<div class="header">
+    <h1>Security Analytics</h1>
+    <p class="subtitle">Real-time overview of threats detected across your organization.</p>
+</div>
+
+<!-- Key Stats -->
+<div class="dashboard-grid">
+    <div class="glass-card stat-card">
+        <div class="stat-value" style="color: var(--text-primary);">{{ total_scans }}</div>
+        <div class="stat-label">Total Messages Scanned</div>
+    </div>
+    <div class="glass-card stat-card" style="border-bottom: 4px solid var(--danger);">
+        <div class="stat-value" style="color: var(--danger);">{{ phishing_blocked }}</div>
+        <div class="stat-label">Phishing Attempts Blocked</div>
+    </div>
+    <div class="glass-card stat-card" style="border-bottom: 4px solid var(--success);">
+        <div class="stat-value" style="color: var(--success);">{{ accuracy }}%</div>
+        <div class="stat-label">System Accuracy</div>
+    </div>
+</div>
+
+<div class="glass-card">
+    <div class="tabs">
+        <button class="tab-btn active" data-target="history">Recent Threats</button>
+        <button class="tab-btn" data-target="trends">Attack Trends</button>
+    </div>
+
+    <!-- History Tab -->
+    <div id="history" class="tab-content active">
+        <table style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+                    <th style="padding: 1rem;">Time</th>
+                    <th style="padding: 1rem;">Vector</th>
+                    <th style="padding: 1rem;">Classification</th>
+                    <th style="padding: 1rem;">Confidence</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for scan in recent_scans %}
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                    <td style="padding: 1rem;">{{ scan.timestamp|timesince }} ago</td>
+                    <td style="padding: 1rem;">{% if scan.is_url_scan %}URL Scan{% else %}Text Scan{% endif %}</td>
+                    <td style="padding: 1rem; color: {% if scan.classification == 'phishing' %}var(--danger){% else %}var(--success){% endif %};">
+                        {{ scan.classification|title }}
+                    </td>
+                    <td style="padding: 1rem;">{{ scan.confidence|floatformat:1 }}%</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" style="padding: 2rem; text-align: center; color: var(--text-secondary);">No scans performed yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+            <a href="{% url 'generate_report' %}" class="btn btn-secondary">📄 Generate PDF Report</a>
+        </div>
+    </div>
+
+    <!-- Trends Tab -->
+    <div id="trends" class="tab-content">
+        <div class="chart-container">
+            <canvas id="threatChart"></canvas>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('threatChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Phishing Attacks Detected',
+                data: [12, 19, 15, 25, 22, 10, 8],
+                borderColor: '#EF4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Legitimate Messages',
+                data: [120, 150, 140, 180, 170, 90, 85],
+                borderColor: '#10B981',
+                backgroundColor: 'transparent',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#94A3B8' }
+                },
+                x: {
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#94A3B8' }
+                }
+            },
+            plugins: {
+                legend: { labels: { color: '#FFFFFF' } }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

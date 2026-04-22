@@ -1,0 +1,21 @@
+text,label
+"Congratulations! You've won a $1000 Walmart gift card. Click here to claim your prize: http://gift-claim-walm.com",phishing
+"Your PayPal account has been restricted due to suspicious activity. Please verify your identity immediately: http://paypal-verify-auth.com",phishing
+"Hi team, let's meet at 10 AM to discuss the new project sprint.",legitimate
+"URGENT: Your Netflix subscription has expired. Update your payment details to continue watching: http://netflix-update-billing.org",phishing
+"Can you pick up some groceries on your way home? We need milk and eggs.",legitimate
+"Action Required: Microsoft Office 365 password expiring in 24 hours. Click to keep current password: http://office365-login.net",phishing
+"Happy birthday! Let's celebrate this weekend at the new Italian restaurant.",legitimate
+"Dear Customer, your bank account access has been temporarily locked. Restore access here: http://chase-bank-security.com/login",phishing
+"The meeting notes are attached to this email. Let me know if you have any questions.",legitimate
+"You have 1 new pending voicemail. Log in to listen: http://voicemail-gateway.net/listen",phishing
+"I'll be out of the office tomorrow for a doctor's appointment. Sam will cover for me.",legitimate
+"Security Alert: We detected an unathorized login attempt on your Apple ID. Verify your details here: http://apple-id-verify.com",phishing
+"Are we still on for lunch today?",legitimate
+"Claim your free iPhone 15 now! Limited time offer, click http://free-iphone-claim.com",phishing
+"Please review the attached invoice #4928 and process the payment by Friday.",legitimate
+"Your package could not be delivered due to an incorrect address. Update it here: http://usps-delivery-issue.com",phishing
+"Did you watch the game last night? That ending was crazy!",legitimate
+"Final Notice: You have an unpaid traffic ticket. Pay immediately to avoid a warrant: http://traffic-court-payment.gov.net",phishing
+"Thanks for your order! Your receipt is attached for your records.",legitimate
+"We noticed a login from an unrecognized device to your Amazon account. If this wasn't you, secure your account: http://amazon-secure-login.com",phishing
